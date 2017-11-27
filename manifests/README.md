@@ -59,12 +59,16 @@ master_host=$(bosh int <(bosh instances --json) --path /Tables/0/Rows/0/ips)
 Finally, setup your local `kubectl` configuration:
 
 ```
-kubectl config set-cluster "${BOSH_DEPLOYMENT}" \
+cluster_name="cfcr:${BOSH_ENVIRONMENT}:${BOSH_DEPLOYMENT}"
+user_name="cfcr:${BOSH_ENVIRONMENT}:${BOSH_DEPLOYMENT}-admin"
+context_name="cfcr:${BOSH_ENVIRONMENT}:${BOSH_DEPLOYMENT}"
+
+kubectl config set-cluster "${cluster_name}" \
   --server="https://${master_host}:8443" \
   --insecure-skip-tls-verify=true
-kubectl config set-credentials "${BOSH_DEPLOYMENT}-admin" --token="${admin_password}"
-kubectl config set-context "${BOSH_DEPLOYMENT}" --cluster="${BOSH_DEPLOYMENT}" --user="${BOSH_DEPLOYMENT}-admin"
-kubectl config use-context "${BOSH_DEPLOYMENT}"
+kubectl config set-credentials "${user_name}" --token="${admin_password}"
+kubectl config set-context "${context_name}" --cluster="${cluster_name}" --user="${user_name}"
+kubectl config use-context "${context_name}"
 ```
 
 To confirm that you are connected and configured to your Kubernetes cluster:
@@ -166,13 +170,17 @@ bosh int <(credhub get -n "${BOSH_ENVIRONMENT}/${BOSH_DEPLOYMENT}/tls-kubernetes
 Finally, setup your local `kubectl` configuration:
 
 ```
-kubectl config set-cluster "${BOSH_DEPLOYMENT}" \
+cluster_name="cfcr:${BOSH_ENVIRONMENT}:${BOSH_DEPLOYMENT}"
+user_name="cfcr:${BOSH_ENVIRONMENT}:${BOSH_DEPLOYMENT}-admin"
+context_name="cfcr:${BOSH_ENVIRONMENT}:${BOSH_DEPLOYMENT}"
+
+kubectl config set-cluster "${cluster_name}" \
   --server="https://${master_host}:8443" \
   --certificate-authority="${tmp_ca_file}" \
   --embed-certs=true
-kubectl config set-credentials "${BOSH_DEPLOYMENT}-admin" --token="${admin_password}"
-kubectl config set-context "${BOSH_DEPLOYMENT}" --cluster="${BOSH_DEPLOYMENT}" --user="${BOSH_DEPLOYMENT}-admin"
-kubectl config use-context "${BOSH_DEPLOYMENT}"
+kubectl config set-credentials "${user_name}" --token="${admin_password}"
+kubectl config set-context "${context_name}" --cluster="${cluster_name}" --user="${user_name}"
+kubectl config use-context "${context_name}"
 ```
 
 Confirm that the `:8443` TCP route and certificate for Kubernetes API are working:
