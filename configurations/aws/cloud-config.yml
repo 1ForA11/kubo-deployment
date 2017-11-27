@@ -10,16 +10,16 @@ azs:
     availability_zone: ((az))
 
 vm_types:
-- name: common
+- name: minimal
   cloud_properties:
     instance_type: t2.small
     ephemeral_disk: {size: 25_000}
-- name: master
+- name: small
   cloud_properties:
     instance_type: t2.small
     ephemeral_disk: {size: 25_000}
-    iam_instance_profile: ((master_iam_instance_profile))
-- name: worker
+    iam_instance_profile: ((small_iam_instance_profile))
+- name: small-highmem
   cloud_properties:
     instance_type: m4.xlarge
     ephemeral_disk: {size: 100_000}
@@ -32,7 +32,7 @@ disk_types:
   disk_size: 5120
 
 networks:
-- name: ((deployments_network))
+- name: default
   type: manual
   subnets:
   - range: ((internal_cidr))
@@ -47,5 +47,5 @@ compilation:
   workers: 5
   reuse_compilation_vms: true
   az: z1
-  vm_type: worker
-  network: ((deployments_network))
+  vm_type: small-highmem
+  network: default
