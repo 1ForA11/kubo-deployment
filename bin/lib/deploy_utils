@@ -87,9 +87,6 @@ generate_manifest() {
   case "$routing_mode" in
     cf)
       manifest=$(bosh-cli int <(echo "$manifest") --ops-file="${manifest_dir}/ops-files/cf-routing.yml")
-      if [ -f "${manifest_dir}/ops-files/remove-haproxy.yml" ]; then
-        manifest=$(bosh-cli int <(echo "$manifest") --ops-file="${manifest_dir}/ops-files/remove-haproxy.yml")
-      fi
     ;;
     proxy)
       manifest=$(bosh-cli int <(echo "$manifest") --ops-file="${manifest_dir}/ops-files/iaas/${iaas}/worker-haproxy.yml")
@@ -97,12 +94,6 @@ generate_manifest() {
         manifest=$(bosh-cli int <(echo "$manifest") --ops-file="${manifest_dir}/ops-files/iaas/${iaas}/worker-haproxy.yml")
         manifest=$(bosh-cli int <(echo "$manifest") --ops-file="${manifest_dir}/ops-files/iaas/${iaas}/master-static-ip.yml")
       fi
-    ;;
-    *)
-      if [ -f "${manifest_dir}/ops-files/remove-haproxy.yml" ]; then
-        manifest=$(bosh-cli int <(echo "$manifest") --ops-file="${manifest_dir}/ops-files/remove-haproxy.yml")
-      fi
-
     ;;
   esac
 

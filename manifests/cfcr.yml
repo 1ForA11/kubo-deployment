@@ -1,34 +1,29 @@
-name: ((deployment_name))
-
-features:
-  use_dns_addresses: true
+name: cfcr
 
 releases:
+- name: kubo
+  version: 0.9.0
+  url: https://github.com/cloudfoundry-incubator/kubo-release/releases/download/v0.9.0/kubo-release-0.9.0.tgz
+  sha1: e88722e12cce75b7db688da42564fc3f61715dbf
 - name: kubo-etcd
   version: 5
   url: https://github.com/pivotal-cf-experimental/kubo-etcd/releases/download/v5/kubo-etcd.5.tgz
   sha1: 23ed1754048ff758ed8fdf75ee1369ca59435181
-- name: kubo
-  version: latest
 - name: docker
   version: 30.1.4
   url: https://github.com/cloudfoundry-community/docker-boshrelease/releases/download/v30.1.4/docker-30.1.4.tgz
   sha1: f79a70452b3ddae52f5ac78dd37ff8d9e6ec19e2
-- name: haproxy
-  version: 8.4.0
-  url: https://github.com/cloudfoundry-incubator/haproxy-boshrelease/releases/download/v8.4.0/haproxy-8.4.0.tgz
-  sha1: a3a911f0cf8e672b27c6cb16318fd8c7c77f5bde
 
 stemcells:
 - alias: trusty
   os: ubuntu-trusty
-  version: "3468.5"
+  version: 3468.latest
 
 instance_groups:
 - name: master
   instances: 1
   networks:
-  - name: &network-name ((deployments_network))
+  - name: default
   azs: [z1]
   jobs:
   - name: kubo-dns-aliases
@@ -50,8 +45,8 @@ instance_groups:
       kube-scheduler-password: ((kube-scheduler-password))
       route-sync-password: ((route-sync-password))
       backend_port: 8443 # Bosh links hack
-      port: ((kubernetes_master_port))
-      authorization-mode: &authorization_mode ((authorization_mode))
+      port: 8443
+      authorization-mode: rbac
       tls:
         kubernetes: ((tls-kubernetes))
   - name: kubernetes-controller-manager
@@ -69,11 +64,15 @@ instance_groups:
       api-token: ((kubelet-password))
       admin-username: admin
       admin-password: ((kubo-admin-password))
+<<<<<<< HEAD
       authorization-mode: *authorization_mode
       tls:
         kubernetes: ((tls-kubernetes))
     consumes:
       cloud-provider: {from: master}
+=======
+      authorization-mode: rbac
+>>>>>>> network always named 'default'; vm_types to match cf-deployment; no user variables in cfcr.yml
   - name: etcd
     release: kubo-etcd
     properties:
@@ -82,13 +81,13 @@ instance_groups:
         peer_require_ssl: false
         delete_data_dir_on_stop: false
   stemcell: trusty
-  vm_type: master
-  persistent_disk_type: 5120
+  vm_type: small
+  persistent_disk: 5120
 
 - name: worker
   instances: ((worker_count))
   networks:
-  - name: *network-name
+  - name: default
   azs: [z1]
   jobs:
   - name: kubo-dns-aliases
@@ -110,6 +109,19 @@ instance_groups:
       tls_cert:  ((tls-docker.certificate))
       tls_key: ((tls-docker.private_key))
       env: {}
+<<<<<<< HEAD
+=======
+  - name: kubeconfig
+    release: kubo
+    properties:
+      kubernetes-api-url: "https://master.kubo:8443"
+      kubelet-password: ((kubelet-password))
+      kube-proxy-password: ((kube-proxy-password))
+      kube-scheduler-password: ((kube-scheduler-password))
+      route-sync-password: ((route-sync-password))
+      tls:
+        kubernetes: ((tls-kubernetes))
+>>>>>>> network always named 'default'; vm_types to match cf-deployment; no user variables in cfcr.yml
   - name: cloud-provider
     release: kubo
     properties: {}
@@ -127,8 +139,8 @@ instance_groups:
         kubernetes: ((tls-kubernetes))
       api-token: ((kube-proxy-password))
   stemcell: trusty
-  vm_type: worker
-  persistent_disk_type: 10240
+  vm_type: small-highmem
+  persistent_disk: 10240
 
 update:
   canaries: 1
@@ -157,17 +169,16 @@ variables:
   type: certificate
   options:
     ca: kubo_ca
+    organization: "system:nodes"
     common_name: kubelet.kubo.internal
     alternative_names: []
-    organization: "system:nodes"
 - name: tls-kubernetes
   type: certificate
   options:
     ca: kubo_ca
     organization: "system:masters"
-    common_name: ((kubernetes_master_host))
+    common_name: master.kubo
     alternative_names:
-    - ((kubernetes_master_host))
     - 10.100.200.1
     - kubernetes
     - kubernetes.default
@@ -179,3 +190,6 @@ variables:
   options:
     ca: kubo_ca
     common_name: docker.kubo.internal
+
+features:
+  use_dns_addresses: true
