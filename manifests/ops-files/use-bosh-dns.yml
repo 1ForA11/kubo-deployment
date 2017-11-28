@@ -1,0 +1,17 @@
+- type: replace
+  path: /addons?/-
+  value:
+    name: bosh-dns
+    include:
+      stemcell:
+      - os: ubuntu-trusty
+    jobs:
+    - name: bosh-dns
+      release: bosh-dns
+- type: replace
+  path: /releases/-
+  value:
+    name: bosh-dns
+    sha1: e38d3e5edd16ce2dca778440b636ab1ea61f892f
+    url: https://bosh.io/d/github.com/cloudfoundry/bosh-dns-release?v=0.0.11
+    version: 0.0.11

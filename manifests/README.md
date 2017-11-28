@@ -10,7 +10,6 @@ bosh deploy kubo-deployment/manifests/cfcr.yml
 
 The only dependencies are that your BOSH environment has:
 
-* Local DNS - Learn more at https://bosh.io/docs/dns.html including the `runtime-config/dns.yml` runtime configuration so as to add `bosh-dns` job to all instances
 * Credhub/UAA
 * Cloud Config with `vm_types` named `minimal`, `small`, and `small-highmem` as per similar requirements of [cf-deployment](https://github.com/cloudfoundry/cf-deployment)
 * Cloud Config has a network named `default`as per similar requirements of [cf-deployment](https://github.com/cloudfoundry/cf-deployment)
@@ -25,7 +24,8 @@ You can get started with one `bosh deploy` command. It will download and deploy 
 export BOSH_ENVIRONMENT=<bosh-name>
 export BOSH_DEPLOYMENT=cfcr
 git clone https://github.com/cloudfoundry-incubator/kubo-deployment
-bosh deploy kubo-deployment/manifests/cfcr.yml
+bosh deploy kubo-deployment/manifests/cfcr.yml \
+  -o kubo-deployment/manifests/ops-files/use-bosh-dns.yml
 ```
 
 To see the running cluster:
@@ -142,6 +142,7 @@ NOTE: hopefully one day `cf` deployment will expose its URLs, admin credentials,
 
 ```
 bosh deploy kubo-deployment/manifests/cfcr.yml \
+  -o kubo-deployment/manifests/ops-files/use-bosh-dns.yml
   -o kubo-deployment/manifests/ops-files/cf-routing.yml \
   -l cf-vars.yml
 ```
