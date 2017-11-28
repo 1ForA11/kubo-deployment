@@ -1,0 +1,14 @@
+- type: remove
+  path: /addons/name=bosh-dns
+
+- type: remove
+  path: /releases/name=bosh-dns
+
+- type: remove
+  path: /variables/name=dns_healthcheck_tls_ca
+
+- type: remove
+  path: /variables/name=dns_healthcheck_server_tls
+
+- type: remove
+  path: /variables/name=dns_healthcheck_client_tls
