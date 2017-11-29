@@ -72,6 +72,9 @@ generate_manifest() {
   local routing_mode="$(bosh-cli int "${bosh_environment}/director.yml" --path='/routing_mode')"
   local iaas="$(bosh-cli int "${bosh_environment}/director.yml" --path='/iaas')"
 
+  # common modifications to manifests for wrapper scripts
+  manifest=$(bosh-cli int <(echo "$manifest") --ops-file="${manifest_dir}/ops-files/misc/dev.yml")
+
   if bosh-cli int "${bosh_environment}/director.yml" --path='/http_proxy' &>/dev/null; then
     manifest=$(bosh-cli int <(echo "$manifest") --ops-file="${manifest_dir}/ops-files/add-http-proxy.yml")
   fi

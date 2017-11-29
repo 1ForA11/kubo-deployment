@@ -50,11 +50,6 @@ instance_groups:
   jobs:
   - name: kubo-dns-aliases
     release: kubo
-  - name: cloud-provider
-    release: kubo
-    properties: {}
-    provides:
-      cloud-provider: {as: master}
   - name: flanneld
     release: kubo
   - name: kubernetes-api
@@ -86,15 +81,7 @@ instance_groups:
       api-token: ((kubelet-password))
       admin-username: admin
       admin-password: ((kubo-admin-password))
-<<<<<<< HEAD
-      authorization-mode: *authorization_mode
-      tls:
-        kubernetes: ((tls-kubernetes))
-    consumes:
-      cloud-provider: {from: master}
-=======
       authorization-mode: rbac
->>>>>>> network always named 'default'; vm_types to match cf-deployment; no user variables in cfcr.yml
   - name: etcd
     release: kubo-etcd
     properties:
@@ -131,19 +118,6 @@ instance_groups:
       tls_cert:  ((tls-docker.certificate))
       tls_key: ((tls-docker.private_key))
       env: {}
-<<<<<<< HEAD
-=======
-  - name: kubeconfig
-    release: kubo
-    properties:
-      kubernetes-api-url: "https://master.kubo:8443"
-      kubelet-password: ((kubelet-password))
-      kube-proxy-password: ((kube-proxy-password))
-      kube-scheduler-password: ((kube-scheduler-password))
-      route-sync-password: ((route-sync-password))
-      tls:
-        kubernetes: ((tls-kubernetes))
->>>>>>> network always named 'default'; vm_types to match cf-deployment; no user variables in cfcr.yml
   - name: cloud-provider
     release: kubo
     properties: {}
