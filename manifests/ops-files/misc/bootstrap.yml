@@ -1,3 +1,15 @@
 - type: replace
   path: /name
   value: ((deployment_name))
+
+- type: replace
+  path: /instance_groups/name=master/jobs/name=kubernetes-api/properties/port
+  value: ((kubernetes_master_port))
+
+- type: replace
+  path: /instance_groups/name=master/jobs/name=kubernetes-api/properties/authorization-mode
+  value: ((authorization_mode))
+
+- type: replace
+  path: /instance_groups/name=master/jobs/name=kubernetes-system-specs/properties/authorization-mode
+  value: ((authorization_mode))
