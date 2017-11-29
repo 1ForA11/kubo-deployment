@@ -1,4 +1,8 @@
 - type: replace
+  path: /stemcells/alias=trusty/version
+  value: "3468.11"
+
+- type: replace
   path: /name
   value: ((deployment_name))
 
