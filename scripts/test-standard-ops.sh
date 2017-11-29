@@ -11,8 +11,12 @@ test_standard_ops() {
       else
         fail "cfcr.yml"
       fi
+
+      # Routing Variations
       check_interpolation "cf-routing.yml" "-l example-vars-files/cf-routing.yml"
-      check_interpolation "worker-haproxy.yml" "-v worker_haproxy_tcp_backend_port=8443" "-v worker_haproxy_tcp_frontend_port=8888"
+      check_interpolation "worker-haproxy.yml" "-l example-vars-files/worker-haproxy.yml"
+      check_interpolation "worker-haproxy.yml" "-o iaas/vsphere/worker-haproxy.yml" "-v worker_haproxy_ip_addresses=10.10.10.10" "-l example-vars-files/worker-haproxy.yml"
+      check_interpolation "worker-haproxy.yml" "-o iaas/openstack/worker-haproxy.yml" "-v worker_haproxy_ip_addresses=10.10.10.10" "-l example-vars-files/worker-haproxy.yml"
     popd > /dev/null # operations
   popd > /dev/null
   exit $exit_code
