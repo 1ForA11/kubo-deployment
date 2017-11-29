@@ -50,11 +50,6 @@ instance_groups:
   jobs:
   - name: kubo-dns-aliases
     release: kubo
-  - name: cloud-provider
-    release: kubo
-    properties: {}
-    provides:
-      cloud-provider: {as: master}
   - name: flanneld
     release: kubo
   - name: kubernetes-api
@@ -137,9 +132,6 @@ instance_groups:
       route-sync-password: ((route-sync-password))
       tls:
         kubernetes: ((tls-kubernetes))
-  - name: cloud-provider
-    release: kubo
-    properties: {}
   - name: kubelet
     release: kubo
     properties:
