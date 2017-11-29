@@ -48,7 +48,7 @@ instance_groups:
   instances: 1
   networks:
   - name: default
-  azs: [z1]
+  azs: [z1,z2,z3]
   jobs:
   - name: flanneld
     release: kubo
@@ -101,7 +101,7 @@ instance_groups:
   instances: ((worker_count))
   networks:
   - name: default
-  azs: [z1]
+  azs: [z1,z2,z3]
   jobs:
   - name: flanneld
     release: kubo
