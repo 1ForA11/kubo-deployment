@@ -321,11 +321,6 @@ var _ = Describe("Generate manifest", func() {
 			if strings.Contains(env, "_failing") {
 				continue
 			}
-			// TODO: why do these two envs exec.ExitError ?
-			if strings.Contains(env, "test_openstack_with_haproxy") || strings.Contains(env, "test_vsphere_with_haproxy") {
-				fmt.Println("skipping for now:", env)
-				continue
-			}
 			command := exec.Command("./bin/generate_kubo_manifest", env, "env-name", "director_uuid")
 			out := gbytes.NewBuffer()
 			command.Stdout = out
@@ -342,11 +337,6 @@ var _ = Describe("Generate manifest", func() {
 		files, _ := filepath.Glob(testEnvironmentPath + "/*")
 		for _, env := range files {
 			if strings.Contains(env, "_failing") {
-				continue
-			}
-			// TODO: why do these two envs exec.ExitError ?
-			if strings.Contains(env, "test_openstack_with_haproxy") || strings.Contains(env, "test_vsphere_with_haproxy") {
-				fmt.Println("skipping for now:", env)
 				continue
 			}
 			command := exec.Command("./bin/generate_kubo_manifest", env, "env-name", "director_uuid")
@@ -400,7 +390,6 @@ var _ = Describe("Generate manifest", func() {
 	})
 
 	It("should assign static ip to the master in vsphere with proxy mode", func() {
-		Skip("Building test_vsphere_with_haproxy is failing with exec.ExitError")
 		command := exec.Command("./bin/generate_kubo_manifest", "src/kubo-deployment-tests/resources/environments/test_vsphere_with_haproxy", "name", "director_uuid")
 		command.Stdout = bash.Stdout
 		command.Stderr = bash.Stderr
@@ -413,7 +402,6 @@ var _ = Describe("Generate manifest", func() {
 	})
 
 	It("should assign static ip to the master in open stack with proxy mode", func() {
-		Skip("Building test_openstack_with_haproxy is failing with exec.ExitError")
 		command := exec.Command("./bin/generate_kubo_manifest", "src/kubo-deployment-tests/resources/environments/test_openstack_with_haproxy", "name", "director_uuid")
 		command.Stdout = bash.Stdout
 		command.Stderr = bash.Stderr
