@@ -3,6 +3,12 @@ azs:
 - name: z1
   cloud_properties:
     zone: ((zone))
+- name: z2
+  cloud_properties:
+    zone: ((zone))
+- name: z3
+  cloud_properties:
+    zone: ((zone))
 
 networks:
 - name: default
