@@ -187,3 +187,38 @@ Confirm that the `:8443` TCP route and certificate for Kubernetes API are workin
 ```
 kubectl get all
 ```
+
+## Operator files
+
+### BOSH options
+
+| Name | Purpose | Notes |
+|:---  |:---     |:---   |
+| [`use-runtime-config-bosh-dns.yml`](use-runtime-config-bosh-dns.yml) | Delegate `bosh-dns` addon to BOSH runtime config | Apply this operator file if your BOSH environment has a runtime config that adds the `bosh-dns` job to all instances. By default, `cfcr.yml` will add `bosh-dns` to deployment instances. |
+
+
+### Routing options
+
+| Name | Purpose | Notes |
+|:---  |:---     |:---   |
+| [`cf-routing.yml`](cf-routing.yml) | Combine CFCR with Cloud Foundry routing | Kube API and labeled services advertised to Cloud Foundry routing mesh |
+| [`cf-routing-links.yml`](cf-routing-links.yml) | As above, using BOSH links | Simpler method of integration with Cloud Foundry running on same BOSH [in development] |
+| [`worker-haproxy.yml`](worker-haproxy.yml) | HAProxy routes TCP port to service | Run HAProxy to route single TCP port to single Kubernetes service |
+| **vSphere** | | |
+| [`iaas/vsphere/worker-haproxy.yml`](iaas/vsphere/worker-haproxy.yml) | Static IPs for HAProxy | Declare your preferred static IPs for HAProxy routing |
+| **OpenStack** | | |
+| [`iaas/openstack/worker-haproxy.yml`](iaas/openstack/worker-haproxy.yml) | Floating IPs for HAProxy | Declare your allocated floating IPs for HAProxy routing |
+
+### Proxy
+
+| Name | Purpose | Notes |
+|:---  |:---     |:---   |
+| [`add-http-proxy.yml`](add-http-proxy.yml) | Configure HTTP proxy for containers | Docker passes `http_proxy` environment variable to all containers |
+| [`add-https-proxy.yml`](add-https-proxy.yml) | Configure HTTP proxy for containers | Docker passes `https_proxy` environment variable to all containers |
+| [`add-no-proxy.yml`](add-no-proxy.yml) | Configure HTTP proxy for containers | Docker passes `no_proxy` environment variable to all containers |
+
+### Kubernetes
+
+| Name | Purpose | Notes |
+|:---  |:---     |:---   |
+| [`addons-spec.yml`](addons-spec.yml) | Addons to be deployed into the Kubernetes cluster | - |
