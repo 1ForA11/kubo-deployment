@@ -12,6 +12,15 @@ test_standard_ops() {
         fail "cfcr.yml"
       fi
 
+
+      # Infrastructure
+      check_interpolation "iaas/aws/cloud-provider.yml"
+      check_interpolation "iaas/aws/lb.yml" "-v kubernetes_cluster_tag=test"
+      check_interpolation "iaas/gcp/cloud-provider.yml" "-l example-vars-files/iaas/gcp/cloud-provider.yml"
+      check_interpolation "iaas/openstack/master-static-ip.yml" "-v kubernetes_master_host=10.11.12.13"
+      check_interpolation "iaas/vsphere/cloud-provider.yml" "-l example-vars-files/iaas/vsphere/cloud-provider.yml"
+      check_interpolation "iaas/vsphere/master-static-ip.yml" "-v kubernetes_master_host=10.11.12.13"
+
       # Routing Variations
       check_interpolation "cf-routing.yml" "-l example-vars-files/cf-routing.yml"
       check_interpolation "cf-routing-links.yml" "-l example-vars-files/cf-routing-links.yml"
@@ -26,6 +35,7 @@ test_standard_ops() {
 
       check_interpolation "addons-spec.yml" "-v authorization-mode=rbac" "-v addons-spec={}"
       check_interpolation "use-runtime-config-bosh-dns.yml"
+
 
     popd > /dev/null # operations
   popd > /dev/null
