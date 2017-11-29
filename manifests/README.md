@@ -216,7 +216,7 @@ kubectl get all
 | Name | Purpose | Notes |
 |:---  |:---     |:---   |
 | **AWS** | | |
-| [`iaas/aws/cloud-provider.yml`](iaas/aws/cloud-provider.yml) | Enable Cloud Provider for AWS | - |
+| [`iaas/aws/cloud-provider.yml`](iaas/aws/cloud-provider.yml) | Enable Cloud Provider for AWS | Requires AWS Instance Profiles (not API keys) to grant Kubernetes access to AWS |
 | [`iaas/aws/lb.yml`](iaas/aws/lb.yml) | **TODO** what is this doing? | - |
 | **OpenStack** | | |
 | N/A | | |

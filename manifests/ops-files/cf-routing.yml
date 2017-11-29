@@ -36,8 +36,6 @@
     - name: default
     azs: [z1]
     jobs:
-    - name: kubo-dns-aliases
-      release: kubo
     - name: route-sync
       release: kubo
       properties:

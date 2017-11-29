@@ -40,8 +40,10 @@ addons:
           tls: ((/dns_healthcheck_server_tls))
         client:
           tls: ((/dns_healthcheck_client_tls))
-- name: kubo-dns-aliases
-  release: kubo
+- name: bosh-dns-aliases
+  jobs:
+  - name: kubo-dns-aliases
+    release: kubo
 
 instance_groups:
 - name: master
@@ -50,6 +52,8 @@ instance_groups:
   - name: default
   azs: [z1,z2,z3]
   jobs:
+  - name: cloud-provider
+    release: kubo
   - name: flanneld
     release: kubo
   - name: kubernetes-api
