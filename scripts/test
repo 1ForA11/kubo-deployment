@@ -132,9 +132,9 @@ main() {
   # echo -e "${LIGHT_GREEN} ***** Begin negative readme operations tests ***** ${NOCOLOR}"
   # ensure_test_opsfiles_not_in_readme
 
-  # echo
-  # echo -e "${LIGHT_GREEN} ***** Begin test coverage analysis ***** ${NOCOLOR}"
-  # ensure_opsfiles_in_tests "scripts/test-standard-ops.sh" $(ls manifests/ops-files/*.yml)
+  echo
+  echo -e "${LIGHT_GREEN} ***** Begin test coverage analysis ***** ${NOCOLOR}"
+  ensure_opsfiles_in_tests "scripts/test-standard-ops.sh" $(ls manifests/ops-files/*.yml)
 
   echo
   echo -e "${LIGHT_GREEN} ***** Begin interpolation operations tests ***** ${NOCOLOR}"
