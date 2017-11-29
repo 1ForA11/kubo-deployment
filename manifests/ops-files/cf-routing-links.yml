@@ -2,7 +2,7 @@
   path: /releases/name=kubo
   value:
     name: kubo
-    version: 0.9.0.latest
+    version: latest
 
 - type: replace
   path: /variables/name=tls-kubelet/options/common_name
@@ -61,10 +61,5 @@
       properties:
         cloud_foundry:
           app_domain: ((routing-cf-app-domain-name))
-        nats:
-          machines: ((routing-cf-nats-internal-ips))
-          port: ((routing-cf-nats-port))
-          user: ((routing-cf-nats-username))
-          password: ((routing-cf-nats-password))
     stemcell: trusty
     vm_type: minimal
