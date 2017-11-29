@@ -2,6 +2,12 @@ azs:
 - name: z1
   cloud_properties:
     availability_zone: ((az))
+- name: z2
+  cloud_properties:
+    availability_zone: ((az))
+- name: z3
+  cloud_properties:
+    availability_zone: ((az))
 
 vm_types:
 - name: minimal
