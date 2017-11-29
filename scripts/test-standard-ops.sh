@@ -12,6 +12,7 @@ test_standard_ops() {
         fail "cfcr.yml"
       fi
 
+      check_interpolation "misc/bootstrap.yml" "-l example-vars-files/misc/bootstrap.yml"
 
       # Infrastructure
       check_interpolation "iaas/aws/cloud-provider.yml"
