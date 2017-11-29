@@ -201,13 +201,30 @@ kubectl get all
 
 | Name | Purpose | Notes |
 |:---  |:---     |:---   |
-| [`cf-routing.yml`](cf-routing.yml) | Combine CFCR with Cloud Foundry routing | Kube API and labeled services advertised to Cloud Foundry routing mesh |
+| [`cf-routing.yml`](cf-routing.yml) | Combine CFCR with Cloud Foundry routing | Kube API and labeled services advertised to Cloud Foundry routing mesh. Kube API hostname is included in TLS certificates. |
 | [`cf-routing-links.yml`](cf-routing-links.yml) | As above, using BOSH links | Simpler method of integration with Cloud Foundry running on same BOSH [in development] |
 | [`worker-haproxy.yml`](worker-haproxy.yml) | HAProxy routes TCP port to service | Run HAProxy to route single TCP port to single Kubernetes service |
-| **vSphere** | | |
-| [`iaas/vsphere/worker-haproxy.yml`](iaas/vsphere/worker-haproxy.yml) | Static IPs for HAProxy | Declare your preferred static IPs for HAProxy routing |
 | **OpenStack** | | |
+| [`iaas/openstack/master-static-ip.yml`](iaas/openstack/master-static-ip.yml) | Attach floating IP to Kube API | Assign allocated floating IP to `master` instance. IP included in TLS certificates. |
 | [`iaas/openstack/worker-haproxy.yml`](iaas/openstack/worker-haproxy.yml) | Floating IPs for HAProxy | Declare your allocated floating IPs for HAProxy routing |
+| **vSphere** | | |
+| [`iaas/vsphere/master-static-ip.yml`](iaas/vsphere/master-static-ip.yml) | Assign static IP to Kube API | Assign static IP to `master` instance. IP included in TLS certificates. |
+| [`iaas/vsphere/worker-haproxy.yml`](iaas/vsphere/worker-haproxy.yml) | Static IPs for HAProxy | Declare your preferred static IPs for HAProxy routing |
+
+### Infrastructure
+
+| Name | Purpose | Notes |
+|:---  |:---     |:---   |
+| **AWS** | | |
+| [`iaas/aws/cloud-provider.yml`](iaas/aws/cloud-provider.yml) | Enable Cloud Provider for AWS | - |
+| [`iaas/aws/lb.yml`](iaas/aws/lb.yml) | **TODO** what is this doing? | - |
+| **OpenStack** | | |
+| N/A | | |
+| **GCP** | | |
+| [`iaas/gcp/cloud-provider.yml`](iaas/gcp/cloud-provider.yml) | Enable Cloud Provider for OpenStack | - |
+| **vSphere** | | |
+| [`iaas/vsphere/cloud-provider.yml`](iaas/vsphere/cloud-provider.yml) | Enable Cloud Provider for vSphere | - |
+
 
 ### Proxy
 
