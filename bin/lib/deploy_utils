@@ -75,6 +75,7 @@ generate_manifest() {
   # common modifications to manifests for wrapper scripts
   manifest=$(bosh-cli int <(echo "$manifest") --ops-file="${manifest_dir}/ops-files/misc/dev.yml")
   manifest=$(bosh-cli int <(echo "$manifest") --ops-file="${manifest_dir}/ops-files/misc/bootstrap.yml")
+  manifest=$(bosh-cli int <(echo "$manifest") --ops-file="${manifest_dir}/ops-files/use-runtime-config-bosh-dns.yml")
 
   if bosh-cli int "${bosh_environment}/director.yml" --path='/http_proxy' &>/dev/null; then
     manifest=$(bosh-cli int <(echo "$manifest") --ops-file="${manifest_dir}/ops-files/add-http-proxy.yml")
