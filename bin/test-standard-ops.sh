@@ -16,6 +16,10 @@ test_standard_ops() {
       check_interpolation "misc/bootstrap.yml" "-l example-vars-files/misc/bootstrap.yml"
       check_interpolation "misc/bootstrap.yml"  "-o misc/dev.yml"  "-o use-runtime-config-bosh-dns.yml" "-l example-vars-files/misc/bootstrap.yml"
 
+      # BOSH
+      check_interpolation "use-runtime-config-bosh-dns.yml"
+      check_interpolation "vm-types.yml" "-v master_vm_type=master" "-v worker_vm_type=worker"
+
       # Infrastructure
       check_interpolation "iaas/aws/cloud-provider.yml"
       check_interpolation "iaas/aws/lb.yml" "-v kubernetes_cluster_tag=test"
@@ -38,8 +42,8 @@ test_standard_ops() {
       check_interpolation "add-https-proxy.yml" "-v https_proxy=10.10.10.10:8000"
       check_interpolation "add-no-proxy.yml" "-v no_proxy=localhost,127.0.0.1"
 
+      # Kubernetes
       check_interpolation "addons-spec.yml" "-v authorization-mode=rbac" "-v addons-spec={}"
-      check_interpolation "use-runtime-config-bosh-dns.yml"
 
 
     popd > /dev/null # operations

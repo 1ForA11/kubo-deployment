@@ -14,22 +14,16 @@ vm_types:
   cloud_properties:
     instance_type: t2.small
     ephemeral_disk: {size: 25_000}
-- name: small
+- name: master
   cloud_properties:
     instance_type: t2.small
     ephemeral_disk: {size: 25_000}
-    iam_instance_profile: ((small_iam_instance_profile))
-- name: small-highmem
+    iam_instance_profile: ((master_iam_instance_profile))
+- name: worker
   cloud_properties:
     instance_type: m4.xlarge
     ephemeral_disk: {size: 100_000}
     iam_instance_profile: ((worker_iam_instance_profile))
-
-disk_types:
-- name: 10240
-  disk_size: 10240
-- name: 5120
-  disk_size: 5120
 
 networks:
 - name: default
@@ -47,5 +41,5 @@ compilation:
   workers: 5
   reuse_compilation_vms: true
   az: z1
-  vm_type: small-highmem
+  vm_type: worker
   network: default

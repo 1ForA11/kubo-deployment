@@ -15,21 +15,15 @@ vm_types:
     instance_type: m1.small
     root_disk_size_gb: 20
 
-- name: small
+- name: master
   cloud_properties:
     instance_type: m1.small
     root_disk_size_gb: 20
 
-- name: small-highmem
+- name: worker
   cloud_properties:
     instance_type: m1.large
     root_disk_size_gb: 100
-
-disk_types:
-- name: 10240
-  disk_size: 10240
-- name: 5120
-  disk_size: 5120
 
 networks:
 - name: default
@@ -46,5 +40,5 @@ compilation:
   workers: 5
   reuse_compilation_vms: true
   az: z1
-  vm_type: small-highmem
+  vm_type: worker
   network: default

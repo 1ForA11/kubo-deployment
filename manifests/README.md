@@ -195,6 +195,7 @@ kubectl get all
 | Name | Purpose | Notes |
 |:---  |:---     |:---   |
 | [`use-runtime-config-bosh-dns.yml`](use-runtime-config-bosh-dns.yml) | Delegate `bosh-dns` addon to BOSH runtime config | Apply this operator file if your BOSH environment has a runtime config that adds the `bosh-dns` job to all instances. By default, `cfcr.yml` will add `bosh-dns` to deployment instances. |
+| [`vm-types.yml`](vm-types.yml) | Specify the `vm_type` for `master` and `worker` instances | By default, `master` and `worker` instances assume `vm_type: small` and `vm_type: small-highmem`, respectively (`vm_types` that are also assumed to exists by https://github.com/cloudfoundry/cf-deployment manifests). You may want to use bespoke `vm_types` so as to scale them, tag them, or apply unique `cloud_properties` independently of other deployments in the same BOSH environment. |
 
 
 ### Routing options

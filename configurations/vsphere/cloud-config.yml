@@ -33,27 +33,21 @@ vm_types:
     cpu: 1
     disk: 20480
 
-- name: small
+- name: master
   cloud_properties:
     ram: 4096
     cpu: 1
     disk: 20480
 
-- name: small-highmem
+- name: worker
   cloud_properties:
     ram: 8192
     cpu: 4
     disk: 102400
-
-disk_types:
-- name: 10240
-  disk_size: 10240
-- name: 5120
-  disk_size: 5120
 
 compilation:
   workers: 4
   network: default
   az: z1
   reuse_compilation_vms: true
-  vm_type: small-highmem
+  vm_type: worker
