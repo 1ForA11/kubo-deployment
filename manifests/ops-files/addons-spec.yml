@@ -5,7 +5,7 @@
     release: kubo
     properties:
       api-token: ((kubelet-password))
-      authorization-mode: ((authorization-mode))
+      authorization-mode: ((authorization_mode))
       admin-password: ((kubo-admin-password))
       addons-spec: ((addons-spec))
       tls:

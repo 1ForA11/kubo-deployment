@@ -43,7 +43,7 @@ test_standard_ops() {
       check_interpolation "add-no-proxy.yml" "-v no_proxy=localhost,127.0.0.1"
 
       # Kubernetes
-      check_interpolation "addons-spec.yml" "-v authorization-mode=rbac" "-v addons-spec={}"
+      check_interpolation "addons-spec.yml" "-v authorization_mode=rbac" "-v addons-spec={}"
 
 
     popd > /dev/null # operations
