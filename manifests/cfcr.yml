@@ -86,6 +86,8 @@ instance_groups:
       admin-username: admin
       admin-password: ((kubo-admin-password))
       authorization-mode: rbac
+      tls:
+        kubernetes: ((tls-kubernetes))
   - name: etcd
     release: kubo-etcd
     properties:
