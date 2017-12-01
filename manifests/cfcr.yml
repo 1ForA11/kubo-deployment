@@ -52,6 +52,7 @@ instance_groups:
   jobs:
   - name: cloud-provider
     release: kubo
+    properties: {}
   - name: flanneld
     release: kubo
   - name: kubernetes-api

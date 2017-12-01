@@ -1,19 +1,16 @@
 - type: replace
-  path: /instance_groups/name=master/jobs/name=cloud-provider/properties?
+  path: /instance_groups/name=worker/jobs/name=cloud-provider/properties/cloud-provider?
   value:
-    cloud-provider:
-      type: gce
-      gce:
-        project-id: ((project_id))
-        network-name: ((network))
-        worker-node-tag: ((director_name))-((deployment_name))-worker
-
+    type: gce
+    gce:
+      project-id: ((project_id))
+      network-name: ((network))
+      worker-node-tag: ((director_name))-((deployment_name))-worker
 - type: replace
-  path: /instance_groups/name=master/jobs/name=cloud-provider/provides?
+  path: /instance_groups/name=master/jobs/name=cloud-provider/properties/cloud-provider?
   value:
-    cloud-provider: {as: master}
-
-- type: replace
-  path: /instance_groups/name=master/jobs/name=kubernetes-system-specs/consumes?
-  value:
-    cloud-provider: {from: master}
+    type: gce
+    gce:
+      project-id: ((project_id))
+      network-name: ((network))
+      worker-node-tag: ((director_name))-((deployment_name))-worker
