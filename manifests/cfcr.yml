@@ -70,24 +70,25 @@ instance_groups:
       authorization-mode: rbac
       tls:
         kubernetes: ((tls-kubernetes))
-  - name: kubernetes-controller-manager
+  - name: kubeconfig
     release: kubo
     properties:
+      kubelet-password: ((kubelet-password))
+      kube-proxy-password: ((kube-proxy-password))
+      kube-scheduler-password: ((kube-scheduler-password))
+      route-sync-password: ((route-sync-password))
       tls:
         kubernetes: ((tls-kubernetes))
+  - name: kubernetes-controller-manager
+    release: kubo
   - name: kubernetes-scheduler
     release: kubo
-    properties:
-      api-token: ((kube-scheduler-password))
   - name: kubernetes-system-specs
     release: kubo
     properties:
-      api-token: ((kubelet-password))
       admin-username: admin
       admin-password: ((kubo-admin-password))
       authorization-mode: rbac
-      tls:
-        kubernetes: ((tls-kubernetes))
   - name: etcd
     release: kubo-etcd
     properties:
@@ -122,22 +123,26 @@ instance_groups:
       tls_cert:  ((tls-docker.certificate))
       tls_key: ((tls-docker.private_key))
       env: {}
+  - name: kubeconfig
+    release: kubo
+    properties:
+      kubernetes-api-url: "https://master.kubo:8443"
+      kubelet-password: ((kubelet-password))
+      kube-proxy-password: ((kube-proxy-password))
+      kube-scheduler-password: ((kube-scheduler-password))
+      route-sync-password: ((route-sync-password))
+      tls:
+        kubernetes: ((tls-kubernetes))
   - name: cloud-provider
     release: kubo
     properties: {}
   - name: kubelet
     release: kubo
     properties:
-      api-token: ((kubelet-password))
       tls:
-        kubernetes: ((tls-kubernetes))
         kubelet: ((tls-kubelet))
   - name: kubernetes-proxy
     release: kubo
-    properties:
-      tls:
-        kubernetes: ((tls-kubernetes))
-      api-token: ((kube-proxy-password))
   stemcell: trusty
   vm_type: small-highmem
   persistent_disk: 10240

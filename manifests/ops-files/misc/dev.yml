@@ -3,3 +3,38 @@
   value:
     name: kubo
     version: latest
+
+# Changes to `instance_groups: master`
+- type: remove
+  path: /instance_groups/name=master/jobs/name=kubeconfig
+
+- type: replace
+  path: /instance_groups/name=master/jobs/name=kubernetes-controller-manager/properties?/tls/kubernetes
+  value: ((tls-kubernetes))
+
+- type: replace
+  path: /instance_groups/name=master/jobs/name=kubernetes-scheduler/properties?/api-token
+  value: ((kube-scheduler-password))
+
+- type: replace
+  path: /instance_groups/name=master/jobs/name=kubernetes-system-specs/properties?/api-token
+  value: ((kubelet-password))
+
+# Changes to `instance_groups: worker`
+- type: remove
+  path: /instance_groups/name=worker/jobs/name=kubeconfig
+
+- type: replace
+  path: /instance_groups/name=worker/jobs/name=kubelet/properties?/api-token
+  value: ((kubelet-password))
+- type: replace
+  path: /instance_groups/name=worker/jobs/name=kubelet/properties/tls?/kubernetes
+  value: ((tls-kubernetes))
+
+
+- type: replace
+  path: /instance_groups/name=worker/jobs/name=kubernetes-proxy/properties?/tls/kubernetes
+  value: ((tls-kubernetes))
+- type: replace
+  path: /instance_groups/name=worker/jobs/name=kubernetes-proxy/properties/api-token?
+  value: ((kube-proxy-password))

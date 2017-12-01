@@ -36,10 +36,18 @@
     - name: default
     azs: [z1]
     jobs:
+    - name: kubeconfig
+      release: kubo
+      properties:
+        kubelet-password: ((kubelet-password))
+        kube-proxy-password: ((kube-proxy-password))
+        kube-scheduler-password: ((kube-scheduler-password))
+        route-sync-password: ((route-sync-password))
+        tls:
+          kubernetes: ((tls-kubernetes))
     - name: route-sync
       release: kubo
       properties:
-        api-token: ((route-sync-password))
         tls:
           kubernetes: ((tls-kubernetes))
         cloud_foundry:
