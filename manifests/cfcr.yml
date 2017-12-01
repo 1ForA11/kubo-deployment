@@ -2,9 +2,7 @@ name: cfcr
 
 releases:
 - name: kubo
-  version: 0.9.0
-  url: https://github.com/cloudfoundry-incubator/kubo-release/releases/download/v0.9.0/kubo-release-0.9.0.tgz
-  sha1: e88722e12cce75b7db688da42564fc3f61715dbf
+  version: latest
 - name: kubo-etcd
   version: 5
   url: https://github.com/pivotal-cf-experimental/kubo-etcd/releases/download/v5/kubo-etcd.5.tgz
