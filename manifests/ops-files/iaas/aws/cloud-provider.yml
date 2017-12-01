@@ -1,20 +1,7 @@
 - type: replace
-  path: /instance_groups/name=master/jobs/name=cloud-provider/properties?
-  value:
-    cloud-provider:
-      type: aws
-
+  path: /instance_groups/name=master/jobs/name=cloud-provider/properties/cloud-provider?
+  value: &aws_cloud_provider
+    type: aws
 - type: replace
-  path: /instance_groups/name=master/jobs/name=cloud-provider/provides?
-  value:
-    cloud-provider: {as: master}
-
-- type: replace
-  path: /instance_groups/name=master/jobs/name=cloud-provider/provides?
-  value:
-    cloud-provider: {as: master}
-
-- type: replace
-  path: /instance_groups/name=master/jobs/name=kubernetes-system-specs/consumes?
-  value:
-    cloud-provider: {from: master}
+  path: /instance_groups/name=worker/jobs/name=cloud-provider/properties/cloud-provider?
+  value: *aws_cloud_provider
