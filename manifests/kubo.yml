@@ -81,7 +81,10 @@ instance_groups:
         peer_require_ssl: false
         delete_data_dir_on_stop: false
   stemcell: trusty
-  vm_type: master
+  vm_resources:
+    ram: 4096
+    cpu: 1
+    disk: 20480
   persistent_disk_type: 5120
 
 - name: worker
@@ -126,7 +129,10 @@ instance_groups:
         kubernetes: ((tls-kubernetes))
       api-token: ((kube-proxy-password))
   stemcell: trusty
-  vm_type: worker
+  vm_resources:
+    ram: 8192
+    cpu: 4
+    disk: 102400
   persistent_disk_type: 10240
 
 update:

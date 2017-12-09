@@ -53,4 +53,8 @@
           user: ((routing-cf-nats-username))
           password: ((routing-cf-nats-password))
     stemcell: trusty
-    vm_type: common
+    vm_resources:
+      ram: 4096
+      cpu: 1
+      disk: 20480
+

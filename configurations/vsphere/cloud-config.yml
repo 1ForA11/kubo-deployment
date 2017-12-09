@@ -18,25 +18,6 @@ networks:
     reserved: ((reserved_ips))
     static: []
 
-vm_types:
-- name: common
-  cloud_properties:
-    ram: 4096
-    cpu: 1
-    disk: 20480
-
-- name: master
-  cloud_properties:
-    ram: 4096
-    cpu: 1
-    disk: 20480
-
-- name: worker
-  cloud_properties:
-    ram: 8192
-    cpu: 4
-    disk: 102400
-
 disk_types:
 - name: 10240
   disk_size: 10240
